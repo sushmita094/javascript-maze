@@ -1,0 +1,115 @@
+@import url("https://fonts.googleapis.com/css?family=Lora&display=swap");
+
+// new color scheme
+$space: #2b2d42;
+$coolGrey: #8d99ae;
+$offWhite: #edf2f4;
+$red: #ef233c;
+$crimson: #d80032;
+$river: #616695;
+$log: #1c1d2a;
+$car: #616695;
+$road: #1c1d2a;
+
+body {
+  background-color: $space;
+  color: $offWhite;
+  font-family: "Lora", serif;
+}
+
+.heading {
+  font-size: 24px;
+  text-transform: uppercase;
+}
+
+button {
+  color: white;
+  background-color: #73648a;
+  font-family: "Lora", serif;
+  border: none;
+  border-radius: 5px;
+  padding: 8px 13px;
+  font-size: 14px;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.6px;
+}
+
+.wrapper {
+  text-align: center;
+  display: flex;
+  padding: 0 20px;
+
+  @media (max-width: 767px) {
+    flex-direction: column;
+  }
+}
+
+.grid {
+  margin: 0 auto;
+  border: 2px solid #424566;
+  display: flex;
+  flex-wrap: wrap;
+  height: 360px;
+  width: 360px;
+
+  div {
+    height: 40px;
+    width: 40px;
+
+    &:not(.starting-block, .ending-block, .c1, .c2, .c3, .l1, .l2, .l3, .l4, .l5, .frog) {
+      background-color: #33354e;
+    }
+  }
+
+  @media (max-width: 767px) {
+    width: 270px;
+    height: 270px;
+
+    div {
+      width: 30px;
+      height: 30px;
+    }
+  }
+}
+
+.rightControls {
+  align-self: flex-end;
+
+  .timeLeft {
+    margin: 15px 0 0;
+    padding: 10px;
+    background-color: #33354e;
+    border: 2px solid #424566;
+    border-radius: 5px;
+  }
+}
+
+.starting-block,
+.ending-block {
+  background-color: #596475;
+}
+
+.c1 {
+  background-color: $car;
+}
+
+.c2,
+.c3 {
+  background-color: $road;
+}
+
+.l1,
+.l2,
+.l3 {
+  background-color: $log;
+}
+
+.l4,
+.l5 {
+  background-color: $river;
+}
+
+.frog {
+  background-color: $red !important;
+}
