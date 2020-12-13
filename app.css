@@ -1,46 +1,69 @@
-@import url("https://fonts.googleapis.com/css?family=Lora&display=swap");
+@import url("https://fonts.googleapis.com/css2?family=Roboto+Mono:wght@300;400;500;600;700&display=swap");
 body {
-  background-color: #2b2d42;
+  font-family: "Roboto Mono", monospace;
+  background-color: #232536;
   color: #edf2f4;
-  font-family: "Lora", serif;
+  margin: 0;
 }
 
 .heading {
   font-size: 24px;
-  text-transform: uppercase;
+  margin: 0;
+  margin-bottom: 24px;
+  width: 180px;
 }
 
 button {
+  cursor: pointer;
+  font-family: "Roboto Mono", monospace;
   color: white;
-  background-color: #73648a;
-  font-family: "Lora", serif;
+  background-color: #3e8989;
   border: none;
-  border-radius: 5px;
-  padding: 8px 13px;
+  border-radius: 4px;
+  padding: 10px 22px;
   font-size: 14px;
   font-weight: 600;
-  text-transform: uppercase;
-  letter-spacing: 0.6px;
+  letter-spacing: 0.3px;
+}
+button:hover {
+  background-color: #326e6e;
+}
+button:focus {
+  outline: none;
 }
 
 .wrapper {
-  text-align: center;
   display: flex;
-  padding: 0 20px;
-}
-@media (max-width: 767px) {
-  .wrapper {
-    flex-direction: column;
-  }
+  flex-direction: row;
+  justify-content: center;
+  align-items: center;
+  padding: 24px;
 }
 
 .grid {
-  margin: 0 auto;
-  border: 2px solid #424566;
+  margin: 0 48px;
+  background: #33354e;
   display: flex;
   flex-wrap: wrap;
   height: 360px;
   width: 360px;
+  flex-shrink: 0;
+  min-width: 360px;
+}
+.grid.gridInactive {
+  position: relative;
+}
+.grid.gridInactive::after {
+  content: "";
+  background-color: rgba(51, 53, 78, 0.5);
+  position: absolute;
+  z-index: 1;
+  left: 0;
+  right: 0;
+  top: 0;
+  bottom: 0;
+  width: 100%;
+  height: 100%;
 }
 .grid div {
   height: 40px;
@@ -61,23 +84,27 @@ button {
 }
 
 .rightControls {
-  align-self: flex-end;
+  margin-top: 24px;
+}
+.rightControls button:first-child {
+  margin-right: 16px;
 }
 .rightControls .timeLeft {
   margin: 15px 0 0;
   padding: 10px;
   background-color: #33354e;
   border: 2px solid #424566;
-  border-radius: 5px;
+  border-radius: 4px;
+  text-align: center;
 }
 
 .starting-block,
 .ending-block {
-  background-color: #596475;
+  background-color: #7286a0;
 }
 
 .c1 {
-  background-color: #616695;
+  background-color: #52557d;
 }
 
 .c2,
@@ -93,11 +120,11 @@ button {
 
 .l4,
 .l5 {
-  background-color: #616695;
+  background-color: #52557d;
 }
 
 .frog {
-  background-color: #ef233c !important;
+  background-color: #ffad05 !important;
 }
 
 /*# sourceMappingURL=app.css.map */

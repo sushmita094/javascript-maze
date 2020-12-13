@@ -1,4 +1,5 @@
 document.addEventListener("DOMContentLoaded", () => {
+  const grid = document.querySelector(".grid");
   const squares = document.querySelectorAll(".grid div");
   const carsLeft = document.querySelectorAll(".car-left");
   const carsRight = document.querySelectorAll(".car-right");
@@ -13,6 +14,7 @@ document.addEventListener("DOMContentLoaded", () => {
   let currentIndex = 76;
   let timerId;
   let timerId2;
+  let timeAtPause;
 
   // move the frog
   function moveFrog(e) {
@@ -156,11 +158,9 @@ document.addEventListener("DOMContentLoaded", () => {
   // rules to win frogger
   function win() {
     if (squares[4].classList.contains("frog")) {
-      result.innerHTML = "YOU WON";
+      result.innerHTML = "You Won!";
       // squares[currentIndex].classList.remove("frog");
-      clearInterval(timerId);
-      clearInterval(timerId2);
-      document.removeEventListener("keyup", moveFrog);
+      endGame();
     }
   }
 
@@ -172,25 +172,17 @@ document.addEventListener("DOMContentLoaded", () => {
       squares[currentIndex].classList.contains("l4") ||
       squares[currentIndex].classList.contains("l5")
     ) {
-      result.innerHTML = "YOU LOSE";
+      result.innerHTML = "You Lose :(";
       // squares[currentIndex].classList.remove("frog");
-      clearInterval(timerId);
-      clearInterval(timerId2);
-      document.removeEventListener("keyup", moveFrog);
+      endGame();
     }
   }
 
-  function playAgain() {
-    currentTime = 20;
-    squares[currentIndex].classList.remove("frog");
-    currentIndex = 76;
-    squares[currentIndex].classList.add("frog");
-    result.textContent = "Let's Play";
+  function endGame() {
     clearInterval(timerId);
     clearInterval(timerId2);
-    timerId = setInterval(movePieces, 900);
-    timerId2 = setInterval(timeTheGame, 1000);
-    document.addEventListener("keyup", moveFrog);
+    document.removeEventListener("keyup", moveFrog);
+    grid.classList.add("gridInactive");
   }
 
   // all the functions that move pieces
@@ -207,21 +199,72 @@ document.addEventListener("DOMContentLoaded", () => {
     timeLeft.textContent = currentTime;
   }
 
-  function play() {
+  function resetGame() {
+    currentTime = 20;
+    timeLeft.textContent = currentTime;
+    squares[currentIndex].classList.remove("frog");
+    currentIndex = 76;
+    squares[currentIndex].classList.add("frog");
+    result.textContent = "Let's Play";
+    clearInterval(timerId);
+    clearInterval(timerId2);
+  }
+
+  function playAgain() {
+    resetGame();
+    play();
+  }
+
+  function playAndPauseAction() {
+    console.log("is it play or pause???");
     if (timerId) {
-      clearInterval(timerId);
-    }
-    if (timerId2) {
-      clearInterval(timerId2);
+      console.log("first option");
+      pause();
+    } else if (timeAtPause) {
+      console.log("second option");
+      play();
     } else {
-      timerId = setInterval(movePieces, 900);
-      timerId2 = setInterval(timeTheGame, 1000);
-      document.addEventListener("keyup", moveFrog);
+      console.log("third option");
+      play();
     }
+  }
+
+  function play() {
+    console.log("enter play mode");
+    if (timeAtPause) {
+      currentTime = timeAtPause;
+      timeAtPause = null;
+    }
+    timerId = setInterval(movePieces, 900);
+    timerId2 = setInterval(timeTheGame, 1000);
+    document.addEventListener("keyup", moveFrog);
+    grid.classList.remove("gridInactive");
+
+    // if (timerId) {
+    //   clearInterval(timerId);
+    // }
+    // if (timerId2) {
+    //   clearInterval(timerId2);
+    // } else {
+    //   timerId = setInterval(movePieces, 900);
+    //   timerId2 = setInterval(timeTheGame, 1000);
+    //   document.addEventListener("keyup", moveFrog);
+    //   grid.classList.remove("gridInactive");
+    // }
+  }
+
+  function pause() {
+    console.log("enter pause mode");
+    timeAtPause = currentTime;
+    clearInterval(timerId);
+    clearInterval(timerId2);
+    document.removeEventListener("keyup", moveFrog);
+    grid.classList.add("gridInactive");
+    console.log("after pausing timerId is", timerId);
   }
 
   playAgainBtn.addEventListener("click", playAgain);
 
   // start and pause the game
-  startBtn.addEventListener("click", play);
+  startBtn.addEventListener("click", playAndPauseAction);
 });
